@@ -3,7 +3,6 @@
 namespace WPEmergeBlade\View;
 
 use GuzzleHttp\Psr7\Response;
-use GuzzleHttp\Psr7\Utils;
 use WPEmerge\View\ViewException;
 use WPEmerge\View\HasContextTrait;
 use WPEmerge\View\HasNameTrait;
@@ -52,8 +51,6 @@ class BladeView implements ViewInterface {
 	 * {@inheritDoc}
 	 */
 	public function toResponse() {
-		return (new Response())
-			->withHeader( 'Content-Type', 'text/html' )
-			->withBody( Utils::streamFor( $this->toString() ) );
+		return new Response( 200, ['Content-Type' => 'text/html'], $this->toString() );
 	}
 }
